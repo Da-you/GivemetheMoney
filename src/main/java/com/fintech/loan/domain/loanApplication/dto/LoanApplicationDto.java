@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class LoanApplicationDto {
     @Getter
@@ -30,6 +31,15 @@ public class LoanApplicationDto {
         private String email;
         private BigDecimal hopeAmount;
         private LocalDateTime appliedAt;
+
+    }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class AcceptTermsDto {
+        private List<Long> acceptTermsIds;
 
     }
 }

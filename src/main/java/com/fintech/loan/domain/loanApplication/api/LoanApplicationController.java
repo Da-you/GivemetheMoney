@@ -2,6 +2,7 @@ package com.fintech.loan.domain.loanApplication.api;
 
 import com.fintech.loan.domain.AbstractController;
 import com.fintech.loan.domain.loanApplication.application.LoanApplicationService;
+import com.fintech.loan.domain.loanApplication.dto.LoanApplicationDto;
 import com.fintech.loan.domain.loanApplication.dto.LoanApplicationDto.LoanApplicationRequest;
 import com.fintech.loan.domain.loanApplication.dto.LoanApplicationDto.LoanApplicationResponse;
 import com.fintech.loan.global.dto.ResponseDTO;
@@ -33,5 +34,10 @@ public class LoanApplicationController extends AbstractController {
     @DeleteMapping("/{applicationId}")
     public void delete(@PathVariable Long applicationId) {
         loanApplicationService.delete(applicationId);
+    }
+
+    @PostMapping("/{applicationId}")
+    public ResponseDTO<Boolean> acceptTerms(@PathVariable Long applicationId, @RequestBody LoanApplicationDto.AcceptTermsDto request) {
+        return ok(loanApplicationService.acceptTerms(applicationId, request));
     }
 }
