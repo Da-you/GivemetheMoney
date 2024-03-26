@@ -1,5 +1,6 @@
 package com.fintech.loan.domain.terms.api;
 
+import com.fintech.loan.domain.AbstractController;
 import com.fintech.loan.domain.terms.application.TermsService;
 import com.fintech.loan.domain.terms.dto.TermsDto;
 import com.fintech.loan.global.dto.ResponseDTO;
@@ -14,7 +15,7 @@ import static com.fintech.loan.global.dto.ResponseDTO.ok;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/terms")
-public class TermsController {
+public class TermsController extends AbstractController {
 
     private final TermsService termsService;
 

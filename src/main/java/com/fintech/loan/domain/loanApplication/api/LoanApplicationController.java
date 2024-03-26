@@ -54,23 +54,23 @@ public class LoanApplicationController extends AbstractController {
         return ok(loanApplicationService.acceptTerms(applicationId, request));
     }
 
-    @PostMapping("/files")
-    public ResponseDTO<Void> save(@RequestPart MultipartFile file) throws IOException {
-        fileStorageService.save(file);
+    @PostMapping("/{applicationId}/files")
+    public ResponseDTO<Void> save(@PathVariable Long applicationId,@RequestPart MultipartFile file) throws IOException {
+        fileStorageService.save(applicationId,file);
         return ok();
     }
 
-    @GetMapping("/files")
-    public ResponseEntity<Resource> load(@RequestParam(name = "fileName") String fileName) {
-        Resource file = fileStorageService.load(fileName);
+    @GetMapping("/{applicationId}/files")
+    public ResponseEntity<Resource> load(@PathVariable Long applicationId,@RequestParam(name = "fileName") String fileName) {
+        Resource file = fileStorageService.load(applicationId,fileName);
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"").body(file);
     }
 
-    @GetMapping("/files/info")
-    public ResponseDTO<List<FileInfoDto>> getFileInfos() {
+    @GetMapping("/{applicationId}/files/info")
+    public ResponseDTO<List<FileInfoDto>> getFileInfos(@PathVariable Long applicationId) {
 
-        List<FileInfoDto> result = fileStorageService.loadAll().map(path -> {
+        List<FileInfoDto> result = fileStorageService.loadAll(applicationId).map(path -> {
             String fileName = path.getFileName().toString();
             return FileInfoDto.builder()
                     .name(fileName)
@@ -82,9 +82,9 @@ public class LoanApplicationController extends AbstractController {
         return ok();
     }
 
-    @DeleteMapping("/files")
-    public ResponseDTO<Void> delete() {
-        fileStorageService.deleteAll();
+    @DeleteMapping("/{applicationId}/files")
+    public ResponseDTO<Void> deleteFile(@PathVariable Long applicationId) {
+        fileStorageService.deleteAll(applicationId);
         return ok();
     }
 
