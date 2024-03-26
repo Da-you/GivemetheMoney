@@ -23,8 +23,8 @@ com/fintech/loan/domain/loanApplication/dto/LoanApplicationDto.java
  com.fintech.loan.domain.loanApplication.dto.LoanApplicationDto$LoanApplicationResponse$LoanApplicationResponseBuilder
 com/fintech/loan/domain/terms/domain/Terms.java
  com.fintech.loan.domain.terms.domain.Terms
-com/fintech/loan/domain/loanApplication/application/FileStorageServiceImpl.java
- com.fintech.loan.domain.loanApplication.application.FileStorageServiceImpl
+com/fintech/loan/LoanApplication.java
+ com.fintech.loan.LoanApplication
 com/fintech/loan/domain/terms/dto/TermsDto.java
  com.fintech.loan.domain.terms.dto.TermsDto
  com.fintech.loan.domain.terms.dto.TermsDto$TermsRequest
@@ -49,8 +49,8 @@ com/fintech/loan/domain/consulting/dto/ConsultingDto.java
  com.fintech.loan.domain.consulting.dto.ConsultingDto$ConsultingRequest
  com.fintech.loan.domain.consulting.dto.ConsultingDto$ConsultingResponse
  com.fintech.loan.domain.consulting.dto.ConsultingDto$ConsultingResponse$ConsultingResponseBuilder
-com/fintech/loan/domain/loanApplication/api/LoanApplicationController.java
- com.fintech.loan.domain.loanApplication.api.LoanApplicationController
+com/fintech/loan/domain/loanApplication/application/LoanApplicationService.java
+ com.fintech.loan.domain.loanApplication.application.LoanApplicationService
 com/fintech/loan/global/dto/ResultObject.java
  com.fintech.loan.global.dto.ResultObject
  com.fintech.loan.global.dto.ResultObject$ResultObjectBuilder
@@ -66,15 +66,15 @@ com/fintech/loan/global/exception/APIExceptionHandler.java
  com.fintech.loan.global.exception.APIExceptionHandler
 com/fintech/loan/global/exception/BaseException.java
  com.fintech.loan.global.exception.BaseException
-com/fintech/loan/domain/loanApplication/application/FileStorageService.java
- com.fintech.loan.domain.loanApplication.application.FileStorageService
+com/fintech/loan/global/config/ModelMapperConfig.java
+ com.fintech.loan.global.config.ModelMapperConfig
 com/fintech/loan/domain/consulting/api/ConsultingController.java
  com.fintech.loan.domain.consulting.api.ConsultingController
 com/fintech/loan/domain/BaseEntity.java
  com.fintech.loan.domain.BaseEntity
-com/fintech/loan/domain/loanApplication/application/LoanApplicationService.java
- com.fintech.loan.domain.loanApplication.application.LoanApplicationService
-com/fintech/loan/LoanApplication.java
- com.fintech.loan.LoanApplication
-com/fintech/loan/global/config/ModelMapperConfig.java
- com.fintech.loan.global.config.ModelMapperConfig
+com/fintech/loan/domain/loanApplication/application/FileStorageService.java
+ com.fintech.loan.domain.loanApplication.application.FileStorageService
+com/fintech/loan/domain/loanApplication/application/FileStorageServiceImpl.java
+ com.fintech.loan.domain.loanApplication.application.FileStorageServiceImpl
+com/fintech/loan/domain/loanApplication/api/LoanApplicationController.java
+ com.fintech.loan.domain.loanApplication.api.LoanApplicationController
