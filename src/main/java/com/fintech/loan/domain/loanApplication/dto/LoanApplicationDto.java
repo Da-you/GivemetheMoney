@@ -40,6 +40,14 @@ public class LoanApplicationDto {
     @AllArgsConstructor
     public static class AcceptTermsDto {
         private List<Long> acceptTermsIds;
+    }
 
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class FileInfoDto {
+        private String name;
+        private String url;
     }
 }

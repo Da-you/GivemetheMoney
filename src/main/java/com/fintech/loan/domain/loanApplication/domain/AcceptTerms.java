@@ -21,7 +21,7 @@ public class AcceptTerms extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false, name = "terms_id")
+    @Column(nullable = false, name = "acceptTerms_id")
     private Long id;
 
     private Long applicationId; // 라이프 사이클이 같다면 연관관계로 설정해도 괜찮을거 같다.

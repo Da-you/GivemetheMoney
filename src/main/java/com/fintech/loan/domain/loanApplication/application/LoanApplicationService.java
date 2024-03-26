@@ -15,4 +15,6 @@ public interface LoanApplicationService {
     void delete(Long applicationId);
 
     Boolean acceptTerms(Long applicationId, AcceptTermsDto request);
+
+
 }
