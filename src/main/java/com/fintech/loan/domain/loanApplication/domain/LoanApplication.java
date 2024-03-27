@@ -42,5 +42,6 @@ public class LoanApplication extends BaseEntity {
     private LocalDateTime appliedAt; // 선청일
 
     private BigDecimal approvalAmount;
+    private LocalDateTime contractedAt;
 
 }

@@ -55,14 +55,14 @@ public class LoanApplicationController extends AbstractController {
     }
 
     @PostMapping("/{applicationId}/files")
-    public ResponseDTO<Void> save(@PathVariable Long applicationId,@RequestPart MultipartFile file) throws IOException {
-        fileStorageService.save(applicationId,file);
+    public ResponseDTO<Void> save(@PathVariable Long applicationId, @RequestPart MultipartFile file) throws IOException {
+        fileStorageService.save(applicationId, file);
         return ok();
     }
 
     @GetMapping("/{applicationId}/files")
-    public ResponseEntity<Resource> load(@PathVariable Long applicationId,@RequestParam(name = "fileName") String fileName) {
-        Resource file = fileStorageService.load(applicationId,fileName);
+    public ResponseEntity<Resource> load(@PathVariable Long applicationId, @RequestParam(name = "fileName") String fileName) {
+        Resource file = fileStorageService.load(applicationId, fileName);
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"").body(file);
     }
@@ -86,6 +86,11 @@ public class LoanApplicationController extends AbstractController {
     public ResponseDTO<Void> deleteFile(@PathVariable Long applicationId) {
         fileStorageService.deleteAll(applicationId);
         return ok();
+    }
+
+    @PatchMapping("/{applicationId}/contract")
+    public ResponseDTO<LoanApplicationResponse> contract(@PathVariable Long applicationId) {
+        return ok(loanApplicationService.contract(applicationId));
     }
 
 }

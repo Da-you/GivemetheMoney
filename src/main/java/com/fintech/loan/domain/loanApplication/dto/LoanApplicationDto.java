@@ -31,6 +31,7 @@ public class LoanApplicationDto {
         private String email;
         private BigDecimal hopeAmount;
         private LocalDateTime appliedAt;
+        private LocalDateTime contractAt;
 
     }
 

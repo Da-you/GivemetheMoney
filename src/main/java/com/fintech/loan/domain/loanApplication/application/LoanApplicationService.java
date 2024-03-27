@@ -16,5 +16,7 @@ public interface LoanApplicationService {
 
     Boolean acceptTerms(Long applicationId, AcceptTermsDto request);
 
+    LoanApplicationResponse contract(Long applicationId);
+
 
 }

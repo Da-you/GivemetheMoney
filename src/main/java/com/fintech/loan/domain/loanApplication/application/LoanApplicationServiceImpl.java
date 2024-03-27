@@ -1,5 +1,7 @@
 package com.fintech.loan.domain.loanApplication.application;
 
+import com.fintech.loan.domain.judgment.domain.Judgment;
+import com.fintech.loan.domain.judgment.repository.JudgmentRepository;
 import com.fintech.loan.domain.loanApplication.domain.AcceptTerms;
 import com.fintech.loan.domain.loanApplication.domain.LoanApplication;
 import com.fintech.loan.domain.loanApplication.dto.LoanApplicationDto;
@@ -16,6 +18,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
@@ -28,6 +31,7 @@ public class LoanApplicationServiceImpl implements LoanApplicationService {
     private final LoanApplicationRepository loanApplicationRepository;
     private final TermsRepository termsRepository;
     private final AcceptTermsRepository acceptTermsRepository;
+    private final JudgmentRepository judgmentRepository;
     private final ModelMapper modelMapper;
 
 
@@ -104,5 +108,24 @@ public class LoanApplicationServiceImpl implements LoanApplicationService {
         }
 
         return true;
+    }
+
+    @Override
+    public LoanApplicationResponse contract(Long applicationId) {
+
+        // 신청 정보 유무
+        LoanApplication application = loanApplicationRepository.findById(applicationId)
+                .orElseThrow(() -> new BaseException(ResultType.SYSTEM_ERROR));
+        // 심사 정보 유무
+        Judgment judgment = judgmentRepository.findByApplicationId(applicationId)
+                .orElseThrow(() -> new BaseException(ResultType.SYSTEM_ERROR));
+        // 승인 금액 > 0
+        if (application.getApprovalAmount() == null || application.getApprovalAmount().compareTo(BigDecimal.ZERO) == 0) {
+            throw new BaseException(ResultType.SYSTEM_ERROR);
+        }
+        // 계약 체결
+        application.setContractedAt(LocalDateTime.now());
+        loanApplicationRepository.save(application);
+        return modelMapper.map(application, LoanApplicationResponse.class);
     }
 }
