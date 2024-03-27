@@ -4,6 +4,9 @@ import com.fintech.loan.domain.judgment.domain.Judgment;
 import com.fintech.loan.domain.judgment.dto.JudgmentDto;
 import com.fintech.loan.domain.judgment.dto.JudgmentDto.JudgmentRequest;
 import com.fintech.loan.domain.judgment.repository.JudgmentRepository;
+import com.fintech.loan.domain.loanApplication.domain.LoanApplication;
+import com.fintech.loan.domain.loanApplication.dto.LoanApplicationDto;
+import com.fintech.loan.domain.loanApplication.dto.LoanApplicationDto.GrantAmount;
 import com.fintech.loan.domain.loanApplication.repository.LoanApplicationRepository;
 import com.fintech.loan.global.exception.BaseException;
 import com.fintech.loan.global.exception.ResultType;
@@ -77,6 +80,21 @@ public class JudgmentServiceImpl implements JudgmentService {
                 .orElseThrow(() -> new BaseException(ResultType.NOT_EXIST));
         judgment.setIsDeleted(true);
         judgmentRepository.save(judgment);
+    }
+
+    @Override
+    public GrantAmount grant(Long judgmentId) {
+        Judgment judgment = judgmentRepository.findById(judgmentId)
+                .orElseThrow(() -> new BaseException(ResultType.NOT_EXIST));
+
+        Long applicationId = judgment.getApplicationId();
+        LoanApplication loanApplication = loanApplicationRepository.findById(applicationId)
+                .orElseThrow(() -> new BaseException(ResultType.NOT_EXIST));
+
+        loanApplication.setApprovalAmount(judgment.getApprovalAmount());
+        loanApplicationRepository.save(loanApplication);
+
+        return modelMapper.map(loanApplication, GrantAmount.class);
     }
 
     private Boolean isPresentApplication(Long applicationId) {

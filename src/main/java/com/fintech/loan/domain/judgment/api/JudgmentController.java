@@ -5,6 +5,7 @@ import com.fintech.loan.domain.judgment.application.JudgmentService;
 import com.fintech.loan.domain.judgment.dto.JudgmentDto;
 import com.fintech.loan.domain.judgment.dto.JudgmentDto.JudgmentRequest;
 import com.fintech.loan.domain.judgment.dto.JudgmentDto.JudgmentResponse;
+import com.fintech.loan.domain.loanApplication.dto.LoanApplicationDto;
 import com.fintech.loan.global.dto.ResponseDTO;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -41,5 +42,10 @@ public class JudgmentController extends AbstractController {
     public ResponseDTO<Void> delete(@PathVariable Long judgmentId) {
         judgmentService.delete(judgmentId);
         return ok();
+    }
+
+    @PatchMapping("/{judgmentId}/grants")
+    public ResponseDTO<LoanApplicationDto.GrantAmount> grant(@PathVariable Long judgmentId) {
+        return ok(judgmentService.grant(judgmentId)) ;
     }
 }

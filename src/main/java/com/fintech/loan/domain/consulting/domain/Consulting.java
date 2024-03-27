@@ -38,7 +38,6 @@ public class Consulting extends BaseEntity {
     private String address;
 
     private String city;
-
     private String zipCode;
 
 }

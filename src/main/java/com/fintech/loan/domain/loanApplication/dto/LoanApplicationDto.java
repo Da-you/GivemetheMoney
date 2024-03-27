@@ -50,4 +50,13 @@ public class LoanApplicationDto {
         private String name;
         private String url;
     }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class GrantAmount {
+        private Long applicationId;
+        private BigDecimal approvalAmount;
+    }
 }

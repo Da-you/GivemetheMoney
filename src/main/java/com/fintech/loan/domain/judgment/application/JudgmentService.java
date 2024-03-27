@@ -1,6 +1,7 @@
 package com.fintech.loan.domain.judgment.application;
 
 import com.fintech.loan.domain.judgment.dto.JudgmentDto.*;
+import com.fintech.loan.domain.loanApplication.dto.LoanApplicationDto;
 
 public interface JudgmentService {
 
@@ -11,4 +12,6 @@ public interface JudgmentService {
     JudgmentResponse updateJudgment(Long judgmentId, JudgmentRequest request);
 
     void delete(Long judgmentId);
+
+    LoanApplicationDto.GrantAmount grant(Long judgmentId);
 }
