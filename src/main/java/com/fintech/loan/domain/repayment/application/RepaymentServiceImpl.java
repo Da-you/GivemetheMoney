@@ -9,7 +9,6 @@ import com.fintech.loan.domain.loanApplication.domain.LoanApplication;
 import com.fintech.loan.domain.loanApplication.repository.LoanApplicationRepository;
 import com.fintech.loan.domain.model.RepaymentType;
 import com.fintech.loan.domain.repayment.domain.Repayment;
-import com.fintech.loan.domain.repayment.dto.RepaymentDto;
 import com.fintech.loan.domain.repayment.dto.RepaymentDto.RepaymentRequest;
 import com.fintech.loan.domain.repayment.dto.RepaymentDto.RepaymentResponse;
 import com.fintech.loan.domain.repayment.repoistory.RepaymentRepository;
@@ -20,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -88,5 +88,32 @@ public class RepaymentServiceImpl implements RepaymentService {
                 .map(repayment ->
                         modelMapper.map(repayment, RepaymentListResponse.class))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public UpdateRepaymentResponse update(Long repaymentId, RepaymentRequest request) {
+
+        Repayment repayment = repaymentRepository.findById(repaymentId).orElseThrow(() -> new BaseException(ResultType.SYSTEM_ERROR));
+        // 상환 정보가 잘못 기입된 경우 >
+        // 500만원 잔고에 상환금 100 인줄 알았으나 잘못됨 다시 원복
+        BigDecimal before = repayment.getRepayAmount();
+        balanceService.repaymentBalance(repayment.getApplicationId(), BalanceDto.BalanceRepaymentRequest.builder()
+                .repaymentAmount(before)
+                .repaymentType(RepaymentType.ADD)
+                .build());
+
+        repayment.setRepayAmount(request.getRepaymentAmount());
+        repaymentRepository.save(repayment);
+
+        BalanceResponse result = balanceService.repaymentBalance(repayment.getApplicationId(), BalanceDto.BalanceRepaymentRequest.builder()
+                .repaymentAmount(request.getRepaymentAmount())
+                .repaymentType(RepaymentType.REMOVE)
+                .build());
+        return UpdateRepaymentResponse.builder()
+                .applicationId(repayment.getApplicationId())
+                .beforeRepaymentAmount(before)
+                .afterRepaymentAmount(request.getRepaymentAmount())
+                .balance(result.getBalance())
+                .build();
     }
 }

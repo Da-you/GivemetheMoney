@@ -52,5 +52,10 @@ public class InternalController extends AbstractController {
         return ok(repaymentService.get(applicationId));
     }
 
+    @PatchMapping("/repayments/{repaymentId}")
+    public ResponseDTO<UpdateRepaymentResponse> updateRepay(@PathVariable Long repaymentId, @RequestBody RepaymentRequest request) {
+        return ok(repaymentService.update(repaymentId, request));
+    }
+
 
 }

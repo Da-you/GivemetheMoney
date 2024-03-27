@@ -133,12 +133,12 @@ com/fintech/loan/domain/balance/dto/BalanceDto.java
  com.fintech.loan.domain.balance.dto.BalanceDto$BalanceResponse
  com.fintech.loan.domain.balance.dto.BalanceDto$BalanceUpdateRequest
  com.fintech.loan.domain.balance.dto.BalanceDto$BalanceUpdateRequest$BalanceUpdateRequestBuilder
+com/fintech/loan/domain/repayment/repoistory/RepaymentRepository.java
+ com.fintech.loan.domain.repayment.repoistory.RepaymentRepository
 com/fintech/loan/domain/repayment/application/RepaymentServiceImpl.java
  com.fintech.loan.domain.repayment.application.RepaymentServiceImpl
 com/fintech/loan/domain/entry/api/InternalController.java
  com.fintech.loan.domain.entry.api.InternalController
-com/fintech/loan/domain/repayment/repoistory/RepaymentRepository.java
- com.fintech.loan.domain.repayment.repoistory.RepaymentRepository
 com/fintech/loan/domain/repayment/application/RepaymentService.java
  com.fintech.loan.domain.repayment.application.RepaymentService
 com/fintech/loan/domain/repayment/dto/RepaymentDto.java
@@ -146,3 +146,5 @@ com/fintech/loan/domain/repayment/dto/RepaymentDto.java
  com.fintech.loan.domain.repayment.dto.RepaymentDto$RepaymentListResponse
  com.fintech.loan.domain.repayment.dto.RepaymentDto$RepaymentRequest
  com.fintech.loan.domain.repayment.dto.RepaymentDto$RepaymentResponse
+ com.fintech.loan.domain.repayment.dto.RepaymentDto$UpdateRepaymentResponse
+ com.fintech.loan.domain.repayment.dto.RepaymentDto$UpdateRepaymentResponse$UpdateRepaymentResponseBuilder

@@ -1,9 +1,6 @@
 package com.fintech.loan.domain.repayment.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 
@@ -23,6 +20,18 @@ public class RepaymentDto {
         private Long applicationId;
         private BigDecimal repaymentAmount;
         private BigDecimal Balance;
+    }
+
+    @Getter
+    @Setter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class UpdateRepaymentResponse{
+        private Long applicationId;
+        private BigDecimal beforeRepaymentAmount;
+        private BigDecimal afterRepaymentAmount;
+        private BigDecimal balance;
     }
 
     @Getter

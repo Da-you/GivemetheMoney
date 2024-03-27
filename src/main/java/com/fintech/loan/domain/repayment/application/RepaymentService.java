@@ -10,4 +10,6 @@ public interface RepaymentService {
     RepaymentResponse create(Long applicationId, RepaymentRequest request);
 
     List<RepaymentListResponse> get(Long applicationId);
+
+    UpdateRepaymentResponse update(Long repaymentId,RepaymentRequest request);
 }
