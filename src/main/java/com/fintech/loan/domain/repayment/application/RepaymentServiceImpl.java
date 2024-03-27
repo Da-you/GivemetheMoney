@@ -116,4 +116,19 @@ public class RepaymentServiceImpl implements RepaymentService {
                 .balance(result.getBalance())
                 .build();
     }
+
+    @Override
+    public void delete(Long repaymentId) {
+        Repayment repayment = repaymentRepository.findById(repaymentId).orElseThrow(() -> new BaseException(ResultType.SYSTEM_ERROR));
+        Long applicationId = repayment.getApplicationId();
+        BigDecimal removerBalance = repayment.getRepayAmount();
+        balanceService.repaymentBalance(applicationId, BalanceDto.BalanceRepaymentRequest.builder()
+                .repaymentAmount(removerBalance)
+                .repaymentType(RepaymentType.ADD)
+                .build());
+
+        repayment.setIsDeleted(true);
+        repaymentRepository.save(repayment);
+
+    }
 }

@@ -57,5 +57,11 @@ public class InternalController extends AbstractController {
         return ok(repaymentService.update(repaymentId, request));
     }
 
+    @DeleteMapping("/repayments/{repaymentId}")
+    public ResponseDTO<Void> deleteRepay(@PathVariable Long repaymentId) {
+        repaymentService.delete(repaymentId);
+        return ok();
+    }
+
 
 }
