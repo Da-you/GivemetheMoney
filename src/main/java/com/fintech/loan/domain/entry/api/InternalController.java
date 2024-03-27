@@ -8,6 +8,8 @@ import com.fintech.loan.global.dto.ResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 import static com.fintech.loan.domain.entry.dto.EntryDto.*;
 import static com.fintech.loan.domain.repayment.dto.RepaymentDto.*;
 
@@ -43,6 +45,11 @@ public class InternalController extends AbstractController {
     @PostMapping("/{applicationId}/repayments")
     public ResponseDTO<RepaymentResponse> create(@PathVariable Long applicationId, @RequestBody RepaymentRequest request) {
         return ok(repaymentService.create(applicationId, request));
+    }
+
+    @GetMapping("/{applicationId}/repayments")
+    public ResponseDTO<List<RepaymentListResponse>> getPayments(@PathVariable Long applicationId) {
+        return ok(repaymentService.get(applicationId));
     }
 
 

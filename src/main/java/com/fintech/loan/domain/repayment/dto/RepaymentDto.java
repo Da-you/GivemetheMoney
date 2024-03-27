@@ -24,4 +24,13 @@ public class RepaymentDto {
         private BigDecimal repaymentAmount;
         private BigDecimal Balance;
     }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class RepaymentListResponse{
+        private Long repaymentId;
+        private BigDecimal repaymentAmount;
+    }
 }

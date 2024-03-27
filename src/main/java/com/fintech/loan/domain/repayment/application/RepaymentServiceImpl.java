@@ -20,7 +20,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
+import static com.fintech.loan.domain.repayment.dto.RepaymentDto.*;
 
 @Slf4j
 @Service
@@ -75,5 +79,14 @@ public class RepaymentServiceImpl implements RepaymentService {
 
     }
 
+    @Override
+    public List<RepaymentListResponse> get(Long applicationId) {
 
+        List<Repayment> repayments = repaymentRepository.findAllByApplicationId(applicationId);
+
+        return repayments.stream()
+                .map(repayment ->
+                        modelMapper.map(repayment, RepaymentListResponse.class))
+                .collect(Collectors.toList());
+    }
 }
