@@ -2,13 +2,14 @@ package com.fintech.loan.domain.entry.api;
 
 import com.fintech.loan.domain.AbstractController;
 import com.fintech.loan.domain.entry.application.EntryService;
-import com.fintech.loan.domain.entry.dto.EntryDto;
+import com.fintech.loan.domain.repayment.application.RepaymentService;
+import com.fintech.loan.domain.repayment.dto.RepaymentDto;
 import com.fintech.loan.global.dto.ResponseDTO;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import static com.fintech.loan.domain.entry.dto.EntryDto.*;
+import static com.fintech.loan.domain.repayment.dto.RepaymentDto.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -16,6 +17,7 @@ import static com.fintech.loan.domain.entry.dto.EntryDto.*;
 public class InternalController extends AbstractController {
 
     private final EntryService entryService;
+    private final RepaymentService repaymentService;
 
     @PostMapping("/{applicationId}/entries")
     public ResponseDTO<EntryResponse> create(@PathVariable Long applicationId, @RequestBody EntryRequest request) {
@@ -37,5 +39,11 @@ public class InternalController extends AbstractController {
         entryService.delete(entryId);
         return ok();
     }
+
+    @PostMapping("/{applicationId}/repayments")
+    public ResponseDTO<RepaymentResponse> create(@PathVariable Long applicationId, @RequestBody RepaymentRequest request) {
+        return ok(repaymentService.create(applicationId, request));
+    }
+
 
 }

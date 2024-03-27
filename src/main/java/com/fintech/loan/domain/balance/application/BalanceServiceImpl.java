@@ -2,6 +2,7 @@ package com.fintech.loan.domain.balance.application;
 
 import com.fintech.loan.domain.balance.domain.Balance;
 import com.fintech.loan.domain.balance.repository.BalanceRepository;
+import com.fintech.loan.domain.model.RepaymentType;
 import com.fintech.loan.global.exception.BaseException;
 import com.fintech.loan.global.exception.ResultType;
 import lombok.RequiredArgsConstructor;
@@ -53,6 +54,24 @@ public class BalanceServiceImpl implements BalanceService {
         update = update.subtract(before).add(after);
         balance.setBalance(update);
 
+
+        return modelMapper.map(balanceRepository.save(balance), BalanceResponse.class);
+    }
+
+    @Override
+    public BalanceResponse repaymentBalance(Long applicationId, BalanceRepaymentRequest request) {
+        Balance balance = balanceRepository.findByApplicationId(applicationId).orElseThrow(() -> new BaseException(ResultType.SYSTEM_ERROR));
+
+        BigDecimal updateBalance = balance.getBalance();
+        BigDecimal repay = request.getRepaymentAmount();
+
+        // 상환 정상 = balance - repay
+        // 상환 롤백 = balance + repay
+        if (request.getRepaymentType().equals(RepaymentType.ADD)) {
+            updateBalance = updateBalance.add(repay);
+        } else {
+            updateBalance = updateBalance.subtract(repay);
+        }
 
         return modelMapper.map(balanceRepository.save(balance), BalanceResponse.class);
     }

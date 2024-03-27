@@ -97,4 +97,6 @@ public class EntryServiceImpl implements EntryService {
                 .afterEntryAmount(BigDecimal.ZERO)
                 .build());
     }
+
+
 }
